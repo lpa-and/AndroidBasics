@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="vm" type="at.technikumwien.helloworld.ui.main.MainFragment.MainViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:hint="@string/hint_message"
+                android:text="@={vm.message}"
+                android:drawableLeft="@drawable/ic_message"
+                android:drawablePadding="16dp"/>
+
+            <!--
+                Attributes can be bound by providing a data binding expression
+                in a @{}. Each variable declared in the <data> section can be
+                used here.
+                @{} only calls the corresponding getter of the stated property.
+                So @{vm.message} calls String vm.getMessage(). If you also want changes
+                set back to your variable, you need to add a = in the binding
+                expression @={}. Then, for setting new values, the corresponding
+                setter is called, e.g. vm.setMessage(String message).
+            -->
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/button_send_activity"
+            android:onClick="@{vm::onSendActivityClick}"
+            style="@style/Widget.AppCompat.Button.Colored" />
+
+        <!--
+            Events like clicks can also be bound via data binding.
+            just pass in a method reference (::) of the method that
+            should be called on the event (see onClick above and below).
+
+            The method signature (parameters) of the method referenced must match the
+            signature of the corresponding event listener's method.
+        -->
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/button_send_fragment"
+            android:onClick="@{vm::onSendFragmentClick}"
+            style="@style/Widget.AppCompat.Button.Colored" />
+
+    </LinearLayout>
+</layout>

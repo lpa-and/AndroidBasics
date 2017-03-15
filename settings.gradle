@@ -1,1 +1,1 @@
-include ':template'
+include ':template', ':helloworld'
