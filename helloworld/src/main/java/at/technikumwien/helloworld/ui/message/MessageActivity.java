@@ -2,15 +2,16 @@ package at.technikumwien.helloworld.ui.message;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import at.technikumwien.helloworld.R;
-import at.technikumwien.helloworld.databinding.MessageBinding;
 
 public class MessageActivity extends AppCompatActivity {
 
+    // this static final variable is used as a key
+    // for setting the extra on the activity intent
     private static final String EXTRA_MESSAGE = "message";
 
     public static Intent getIntent(Context ctx, String message) {
@@ -24,13 +25,18 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.message);
+
         // Enable the back button of our activity. By setting
         // parentActivityName in the manifest, Android automatically
         // handles going back to the correct Activity.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Create the binding for our layout and set the message variable
-        MessageBinding binding = DataBindingUtil.setContentView(this, R.layout.message);
-        binding.setMessage(getIntent().getStringExtra(EXTRA_MESSAGE));
+        // Get the message extra from the intent
+        String message = getIntent().getStringExtra(EXTRA_MESSAGE);
+
+        // Set the message String on our TextView
+        TextView textView = (TextView) findViewById(R.id.message);
+        textView.setText(message);
     }
 }

@@ -1,20 +1,20 @@
 package at.technikumwien.helloworld.ui.message;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import at.technikumwien.helloworld.R;
-import at.technikumwien.helloworld.databinding.MessageBinding;
 
 public class MessageFragment extends Fragment {
 
+    // this static final variable is used as a key
+    // for setting the data on the argument bundle
     private static final String EXTRA_MESSAGE = "message";
-
 
     public static Fragment getFragment(String message) {
         MessageFragment fragment = new MessageFragment();
@@ -29,21 +29,23 @@ public class MessageFragment extends Fragment {
         return fragment;
     }
 
-    private MessageBinding binding;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Create the binding for our layout and return the root view
-        binding = DataBindingUtil.inflate(inflater, R.layout.message, container, false);
-        return binding.getRoot();
+        // Inflate the xml layout and return the root view
+        return inflater.inflate(R.layout.message, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Set the message variable
-        binding.setMessage(getArguments().getString(EXTRA_MESSAGE));
+
+        // Get the message String from the arguments
+        String message = getArguments().getString(EXTRA_MESSAGE);
+
+        // Set the message String on our TextView
+        TextView textView = (TextView) getView().findViewById(R.id.message);
+        textView.setText(message);
     }
 
 }

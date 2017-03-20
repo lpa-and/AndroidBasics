@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity {
          * for our MainFragment.
          *
          * The FragmentManager itself "saves" all the fragments that
-         * are currently displayed on the screen. Therefore we only
-         * need to add the MainFragment to the container when we know,
-         * that the Activity is freshly started, via checking the
+         * are currently displayed on the screen when the Activity is killed.
+         * Therefore we only need to add the MainFragment to the container
+         * when we know, that the Activity is freshly started, via checking the
          * savedInstanceState for null */
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
