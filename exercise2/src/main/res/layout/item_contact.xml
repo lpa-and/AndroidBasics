@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    For creating a card, we use a CardView.
+    We provide margins for left, top and right, the bottom
+    margin is handled by our RecyclerView padding (because we only
+    want to show it on the last item, otherwise we would have
+    too much margin, as top and bottom overlap.
+    By setting the foreground attribute to selectableItemBackground,
+    we create a ripple effect on click.
+    With contentPadding, we can set the padding inside the CardView.
+-->
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_marginLeft="@dimen/card_view_outer_padding"
+    android:layout_marginTop="@dimen/card_view_outer_padding"
+    android:layout_marginRight="@dimen/card_view_outer_padding"
+    android:foreground="?attr/selectableItemBackground"
+    app:contentPaddingLeft="@dimen/card_view_inner_padding"
+    app:contentPaddingRight="@dimen/card_view_inner_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_person_black"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:maxLines="2"
+            tools:text="Vorname Nachname"
+            style="@style/TextAppearance.AppCompat.Title"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:text="01.01.\n1980"
+            style="@style/TextAppearance.AppCompat.Body1"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+
