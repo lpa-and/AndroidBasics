@@ -1,4 +1,4 @@
-package at.technikumwien.lecture3;
+package at.technikumwien.lecture4.ui.recyclerview;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -9,17 +9,17 @@ import android.view.ViewGroup;
 import java.util.Collections;
 import java.util.List;
 
+import at.technikumwien.lecture4.R;
+import at.technikumwien.lecture4.data.Message;
+
 public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
-    private List<String> titleList = Collections.emptyList();
-    private List<String> messageList = Collections.emptyList();
+    private List<Message> messageList = Collections.emptyList();
 
-    public void setLists(List<String> titleList, List<String> messageList) {
-        this.titleList = titleList;
+    public void setList(List<Message> messageList) {
         this.messageList = messageList;
         notifyDataSetChanged();
     }
-
 
     @Override
     public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,11 +31,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-        holder.update(titleList.get(position), messageList.get(position));
+        holder.update(messageList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return titleList.size();
+        return messageList.size();
     }
 }
