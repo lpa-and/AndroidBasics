@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Birthday Notifier</string>
+    <string name="no_contacts">Keine Kontakte vorhanden.</string>
+    <string name="snackbar_action_retry">Erneut versuchen</string>
+    <string name="snackbar_title_contact_load_error">Konnte Kontakte nicht laden</string>
+    <string name="snackbar_title_permission_denied">Benötige Berechtigung um Kontakte anzeigen zu können</string>
+    <string name="birthday_notification_text">%s hat Geburtstag!</string>
+</resources>
