@@ -5,4 +5,6 @@
     <string name="snackbar_title_contact_load_error">Konnte Kontakte nicht laden</string>
     <string name="snackbar_title_permission_denied">Benötige Berechtigung um Kontakte anzeigen zu können</string>
     <string name="birthday_notification_text">%s hat Geburtstag!</string>
+    <string name="notification_channel_birthday_name">Geburtstage</string>
+    <string name="notification_channel_birthday_description">Benachrichtigungen über Geburtstage.</string>
 </resources>

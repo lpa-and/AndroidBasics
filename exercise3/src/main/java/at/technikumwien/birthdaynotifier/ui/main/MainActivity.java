@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the content view and find our views
         setContentView(R.layout.activity_main);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        emptyText = (TextView) findViewById(R.id.no_contacts);
+        recyclerView = findViewById(R.id.recycler_view);
+        fab = findViewById(R.id.fab);
+        emptyText = findViewById(R.id.no_contacts);
 
         // Create an adapter for the RecyclerView
         adapter = new ContactAdapter();

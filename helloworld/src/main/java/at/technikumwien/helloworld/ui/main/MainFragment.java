@@ -44,9 +44,9 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Get references of the views from the XML layout
-        message = (EditText) getView().findViewById(R.id.message);
-        sendActivity = (Button) getView().findViewById(R.id.send_activity);
-        sendFragment = (Button) getView().findViewById(R.id.send_fragment);
+        message = getView().findViewById(R.id.message);
+        sendActivity = getView().findViewById(R.id.send_activity);
+        sendFragment = getView().findViewById(R.id.send_fragment);
 
         // Here, we restore our saved state (in our case
         // the message String). Do not forget to check whether

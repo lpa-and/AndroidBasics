@@ -44,7 +44,7 @@ public class MessageFragment extends Fragment {
         String message = getArguments().getString(EXTRA_MESSAGE);
 
         // Set the message String on our TextView
-        TextView textView = (TextView) getView().findViewById(R.id.message);
+        TextView textView = getView().findViewById(R.id.message);
         textView.setText(message);
     }
 

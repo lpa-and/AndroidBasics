@@ -36,7 +36,7 @@ public class MessageActivity extends AppCompatActivity {
         String message = getIntent().getStringExtra(EXTRA_MESSAGE);
 
         // Set the message String on our TextView
-        TextView textView = (TextView) findViewById(R.id.message);
+        TextView textView = findViewById(R.id.message);
         textView.setText(message);
     }
 }

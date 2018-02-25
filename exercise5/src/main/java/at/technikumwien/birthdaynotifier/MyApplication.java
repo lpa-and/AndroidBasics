@@ -9,8 +9,6 @@ import android.content.Intent;
 
 import at.technikumwien.birthdaynotifier.data.local.ContactRepo;
 import at.technikumwien.birthdaynotifier.data.local.ContentResolverContactRepo;
-import at.technikumwien.birthdaynotifier.data.local.FakeContactRepo;
-import at.technikumwien.birthdaynotifier.receiver.BootCompletedReceiver;
 import at.technikumwien.birthdaynotifier.service.BirthdayNotifierService;
 
 public class MyApplication extends Application {
@@ -28,6 +26,9 @@ public class MyApplication extends Application {
         // the alarms would not be set until the device is rebooted
         // for the first time.
         setAlarms();
+
+        // Setup notification channel for our birthday notifications
+        BirthdayNotifierService.createNotificationChannel(this);
     }
 
     private void setAlarms() {
@@ -39,6 +40,7 @@ public class MyApplication extends Application {
         // Use this for testing:
         // am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent);
     }
+
 
     public static ContactRepo getContactRepo() {
         return contactRepo;

@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the content view and find our views
         setContentView(R.layout.activity_main);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        emptyText = (TextView) findViewById(R.id.no_contacts);
+        recyclerView = findViewById(R.id.recycler_view);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        fab = findViewById(R.id.fab);
+        emptyText = findViewById(R.id.no_contacts);
 
         // Create an adapter for the RecyclerView
         adapter = new ContactAdapter();
