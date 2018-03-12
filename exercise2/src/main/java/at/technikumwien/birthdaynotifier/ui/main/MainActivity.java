@@ -17,7 +17,7 @@ import at.technikumwien.birthdaynotifier.ui.main.recyclerview.ContactAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView emptyText;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the content view and find our views
         setContentView(R.layout.activity_main);
+
+        title = findViewById(R.id.title);
+        title.setText("Test Test ");
     }
 
 }
