@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".message.MessageActivity" />
+        <activity
+            android:name=".message.MessageActivity"
+            android:parentActivityName=".main.MainActivity" />
     </application>
 
 </manifest>
