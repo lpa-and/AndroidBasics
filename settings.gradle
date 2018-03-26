@@ -1,1 +1,1 @@
-include ':template', ':helloworld', ':exercise2', ':exercise3', ':exercise4', ':exercise5'
+include ':template', ':helloworld', ':exercise2', ':exercise3', ':exercise4', ':exercise5', ':myfirstapp'
