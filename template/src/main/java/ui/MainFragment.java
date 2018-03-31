@@ -39,6 +39,8 @@ public class MainFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MessageActivity.class);
                 intent.putExtra(MainActivity.MESSAGE, userInput.getText().toString());
                 startActivity(intent);
+
+                userInput.setText("");
             }
         });
 
@@ -46,7 +48,13 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container, messageToFragment(userInput.getText().toString()))
+                        .addToBackStack(null)
+                        .commit();
 
+                userInput.setText("");
             }
         });
     }

@@ -21,6 +21,7 @@
             android:id="@+id/userInput"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
+            android:textSize="24sp"
             android:drawableStart="@android:drawable/btn_star_big_on"
             android:drawablePadding="8dp"
             android:hint="@string/input_hint" />

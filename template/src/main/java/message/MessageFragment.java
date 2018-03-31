@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import at.technikumwien.birthdaynotifier.R;
+import ui.MainActivity;
 
 public class MessageFragment extends Fragment {
 
@@ -22,5 +24,8 @@ public class MessageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        TextView fragmentText = getView().findViewById(R.id.message);
+        fragmentText.setText(getArguments().getString(MainActivity.MESSAGE));
     }
 }
