@@ -1,3 +1,5 @@
+package ui;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -5,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import at.technikumwien.birthdaynotifier.R;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String MESSAGE = "key";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -19,4 +23,4 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
     }
-}//end of class MainActivity
+}//end of class ui.MainActivity
