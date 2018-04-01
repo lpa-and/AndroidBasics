@@ -17,6 +17,14 @@ import message.MessageFragment;
 
 public class MainFragment extends Fragment {
 
+    private EditText userInput;
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(MainActivity.MESSAGE, userInput.getText().toString());
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,19 +36,22 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final EditText userInput = getView().findViewById(R.id.userInput);
+        userInput = getView().findViewById(R.id.userInput);
         Button activityButton = getView().findViewById(R.id.activityButton);
         Button fragmentButton = getView().findViewById(R.id.fragmentButton);
+
+        if (savedInstanceState != null){
+            userInput.setText(savedInstanceState.getString(MainActivity.MESSAGE));
+        }
 
         activityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+
                 Intent intent = new Intent(getContext(), MessageActivity.class);
                 intent.putExtra(MainActivity.MESSAGE, userInput.getText().toString());
                 startActivity(intent);
-
-                userInput.setText("");
             }
         });
 
@@ -53,8 +64,6 @@ public class MainFragment extends Fragment {
                         .replace(R.id.container, messageToFragment(userInput.getText().toString()))
                         .addToBackStack(null)
                         .commit();
-
-                userInput.setText("");
             }
         });
     }
@@ -69,6 +78,5 @@ public class MainFragment extends Fragment {
 
         return fragment;
     }
-
 
 }//end of fragment MainFragment
