@@ -9,7 +9,7 @@ import com.example.android.birthdaynotifier.R
 import com.example.android.birthdaynotifier.model.Person
 import com.example.android.birthdaynotifier.viewholder.PersonViewHolder
 
-class PersonAdapter(val mContext: Context, val personsList: ArrayList<Person>) : RecyclerView.Adapter<PersonViewHolder>() {
+class PersonAdapter(val mContext: Context, var personsList: ArrayList<Person>) : RecyclerView.Adapter<PersonViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): PersonViewHolder {
 
@@ -20,12 +20,16 @@ class PersonAdapter(val mContext: Context, val personsList: ArrayList<Person>) :
     override fun onBindViewHolder(holder: PersonViewHolder?, position: Int) {
 
         var person: Person = personsList.get(position)
-        holder?.icon?.setImageResource(person.personIcon)
-        holder?.name?.setText(person.personName)
-        holder?.birthday?.setText(person.personBirthday)
+        holder?.name?.text = person.personName
+        holder?.birthday?.text = person.personBirthday
     }
 
     override fun getItemCount(): Int {
         return personsList.size
+    }
+
+    fun setPersonList(contactList: ArrayList<Person>) {
+        this.personsList = contactList
+        notifyDataSetChanged()
     }
 }
