@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import at.technikumwien.birthdaynotifier.R;
+import at.technikumwien.birthdaynotifier.data.Contact;
 
 /**
  * Please read the {@link RecyclerView.ViewHolder} java docs.
@@ -34,7 +35,7 @@ class ContactViewHolder extends RecyclerView.ViewHolder {
 
     // Here we set the new item model on our view holder and
     // update our views accordingly
-    void update(String contactName) {
-        name.setText(contactName);
+    void update(Contact contact) {
+        name.setText(contact.name());
     }
 }

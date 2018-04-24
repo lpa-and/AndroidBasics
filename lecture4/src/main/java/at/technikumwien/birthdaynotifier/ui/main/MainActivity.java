@@ -1,9 +1,13 @@
 package at.technikumwien.birthdaynotifier.ui.main;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +15,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import at.technikumwien.birthdaynotifier.R;
+import at.technikumwien.birthdaynotifier.data.Contact;
 import at.technikumwien.birthdaynotifier.ui.main.recyclerview.ContactAdapter;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static int REQUEST_CODE_PERMISSION_READ_CONTACTS = 638;
 
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
@@ -52,14 +60,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Snackbar.make(fab, "Kontakte geladen", Snackbar.LENGTH_LONG).show();
                 onContactsLoaded(Arrays.asList(
-                        "Max Mustermann",
-                        "Maria Musterfrau",
-                        "Stefan Müller",
-                        "Theresa Huber",
-                        "Manuel Mustermann",
-                        "Stefanie Musterfrau",
-                        "Thomas Müller",
-                        "Sarah Huber"
+                        Contact.create(0, "Max Mustermann", new Date()),
+                        Contact.create(1, "Maria Musterfrau", new Date())
                 ));
             }
         });
@@ -68,12 +70,28 @@ public class MainActivity extends AppCompatActivity {
     private void checkContactsPermission() {
         // First, check whether we already have the permission, if yes, we can
         // directly call our onContactsPermissionGranted() callback
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            onContactsPermissionGranted();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_CODE_PERMISSION_READ_CONTACTS);
+        }
     }
 
     // After requesting a permission, the system calls this callback with the result
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // First, check whether the request code matches
+        if(requestCode == REQUEST_CODE_PERMISSION_READ_CONTACTS) {
+            // Then check, whether the permission was granted or not
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                onContactsPermissionGranted();
+            } else {
+                onContactsPermissionDenied();
+            }
+        }
 
     }
 
@@ -92,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Is called, when contacts are loaded. Here we set the visibility
     // of the empty list info text and update the data in our adapter
-    private void onContactsLoaded(List<String> contactList) {
+    private void onContactsLoaded(List<Contact> contactList) {
         emptyText.setVisibility(contactList.isEmpty() ? View.VISIBLE : View.GONE);
         adapter.setContactList(contactList);
     }

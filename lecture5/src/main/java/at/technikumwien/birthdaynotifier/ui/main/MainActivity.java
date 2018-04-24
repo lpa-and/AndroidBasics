@@ -18,7 +18,10 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import at.technikumwien.birthdaynotifier.BirthdayNotifierApplication;
 import at.technikumwien.birthdaynotifier.R;
+import at.technikumwien.birthdaynotifier.data.local.ContactRepo;
+import at.technikumwien.birthdaynotifier.data.local.OnDataLoadCallback;
 import at.technikumwien.birthdaynotifier.data.model.Contact;
 import at.technikumwien.birthdaynotifier.ui.main.recyclerview.ContactAdapter;
 import at.technikumwien.birthdaynotifier.util.Utils;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView emptyText;
 
     private ContactAdapter adapter;
+    private ContactRepo contactRepo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create an adapter for the RecyclerView
         adapter = new ContactAdapter();
+        contactRepo = ((BirthdayNotifierApplication) getApplication()).getContactRepo();
 
         // If the recycler view does not change in size, this
         // enables some optimizations
@@ -62,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkContactsPermission();
+                checkContactsPermissionAndLoadContacts();
             }
         });
     }
 
-    private void checkContactsPermission() {
+    private void checkContactsPermissionAndLoadContacts() {
         // First, check whether we already have the permission, if yes, we can
         // directly call our onContactsPermissionGranted() callback
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
@@ -99,27 +104,41 @@ public class MainActivity extends AppCompatActivity {
     private void onContactsPermissionGranted() {
         Snackbar.make(recyclerView, "Permission granted", Snackbar.LENGTH_LONG).show();
 
-        onContactsLoaded(Arrays.asList(
-                Contact.create(0, "Max Mustermann", Utils.parseDate("1991-02-03")),
-                Contact.create(1, "Maria Musterfrau", new Date()), // today -> happy birthday!
-                Contact.create(2, "Stefan Müller", Utils.parseDate("1960-11-26")),
-                Contact.create(3, "Theresa Huber", Utils.parseDate("1966-04-06")),
-                Contact.create(4, "Manuel Mustermann", Utils.parseDate("1990-01-10")),
-                Contact.create(5, "Stefanie Musterfrau", Utils.parseDate("1973-12-18")),
-                Contact.create(6, "Thomas Müller", new Date()), // today -> happy birthday!
-                Contact.create(7, "Sarah Huber", Utils.parseDate("1962-10-01"))
-        ));
+        // Anonyme Klasse -> Implementieren und Instanz erstellen
+        OnDataLoadCallback<List<Contact>> callback = new OnDataLoadCallback<List<Contact>>() {
+            @Override
+            public void onDataLoaded(List<Contact> data) {
+                // When we arrive here, we have the list of contacts
+                // as a parameter (data)
+
+                onContactsLoaded(data);
+            }
+
+            @Override
+            public void onDataLoadError(Exception exception) {
+
+            }
+        };
+
+        // The callback is called when the operation
+        // "findAllContactsWithBirthdays" is finished
+        contactRepo.findAllContactsWithBirthdays(callback);
+    }
+
+    // When permissions are granted, we load contacts from our repository
+    private void loadContacts() {
+
     }
 
     // When permissions are not granted, we show a snackbar with a hint that
-    // the permission is needed. In the snackbar action, we call checkContactsPermission()
+    // the permission is needed. In the snackbar action, we call checkContactsPermissionAndLoadContacts()
     // again, to re-request the permission.
     private void onContactsPermissionDenied() {
         Snackbar.make(recyclerView, "Permission needed to show birthdays", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        checkContactsPermission();
+                        checkContactsPermissionAndLoadContacts();
                     }
                 }).show();
     }
