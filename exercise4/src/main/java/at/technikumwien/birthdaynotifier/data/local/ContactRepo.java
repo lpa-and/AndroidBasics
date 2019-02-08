@@ -1,7 +1,7 @@
 package at.technikumwien.birthdaynotifier.data.local;
 
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
